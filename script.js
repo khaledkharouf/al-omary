@@ -36,29 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Mobile menu functionality
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
-    }
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-            closeMobileMenu();
-        }
-    });
-    
     // Close mobile menu function
     function closeMobileMenu() {
-        if (navMenu.classList.contains('active')) {
+        const navMenu = document.querySelector('.nav-menu');
+        const hamburger = document.querySelector('.hamburger');
+        if (navMenu && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
         }
     }
     
@@ -175,45 +159,45 @@ document.addEventListener('DOMContentLoaded', function() {
     updateActiveNav();
 });
 
-// Add loading animation
+// Page Loader Functionality
+function showLoader() {
+    document.body.classList.add('loading');
+    document.body.classList.remove('loaded');
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+        loader.classList.remove('hidden');
+    }
+}
+
+function hideLoader() {
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+        loader.classList.add('hidden');
+        setTimeout(() => {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+        }, 0);
+    }
+}
+
+// Show loader when page starts loading
+showLoader();
+
+// Hide loader when page is fully loaded
 window.addEventListener('load', function() {
-    document.body.classList.add('loaded');
+    hideLoader();
 });
 
-// Add CSS for loading state
+// Hide loader when DOM is ready (fallback)
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.readyState === 'complete') {
+        hideLoader();
+    }
+});
+
+// Add CSS for active navigation
 const style = document.createElement('style');
 style.textContent = `
-    body:not(.loaded) {
-        overflow: hidden;
-    }
-    
-    body:not(.loaded)::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #4CAF50;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    body:not(.loaded)::after {
-        content: 'العمري';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 2rem;
-        font-weight: 700;
-        z-index: 10000;
-        font-family: 'Cairo', sans-serif;
-    }
-    
     .nav-link.active {
         color: #4CAF50 !important;
     }

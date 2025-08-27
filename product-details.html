@@ -263,7 +263,22 @@
         }
     </style>
 </head>
-<body>
+<body class="loading">
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <i class="fas fa-leaf"></i>
+                <span>العمري</span>
+            </div>
+            <div class="loader-spinner"></div>
+            <div class="loader-text">جاري التحميل...</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Header -->
     <header class="header">
         <nav class="navbar">
@@ -487,7 +502,46 @@
             event.target.classList.add('active');
         }
         
-
+        // Mobile menu functionality for product details page
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    hamburger.classList.toggle('active');
+                });
+            }
+            
+            // Close mobile menu when clicking on nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (hamburger && navMenu && !hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Close mobile menu function
+            function closeMobileMenu() {
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            }
+        });
     </script>
 </body>
 </html>
