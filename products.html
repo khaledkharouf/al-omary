@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنتجات - العمري</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .products-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1200&h=400&fit=crop&crop=center');
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .products-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .products-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .product-categories {
+            padding: 80px 0;
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .category-tab {
+            background: #f5f5f5;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #666;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-tab.active,
+        .category-tab:hover {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .product-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
+        }
+        
+        .product-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.15);
+            border-color: #4CAF50;
+        }
+        
+        .product-image {
+            height: 220px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+        
+        .product-item:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transform: rotate(5deg);
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes badgeFloat {
+            0%, 100% { transform: rotate(5deg) translateY(0px); }
+            50% { transform: rotate(5deg) translateY(-3px); }
+        }
+        
+        .product-content {
+            padding: 1.8rem;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        }
+        
+        .product-title {
+            font-size: 1.4rem;
+            color: #2c5530;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .product-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+        
+        .product-features li {
+            padding: 0.6rem 0.8rem;
+            color: #555;
+            position: relative;
+            padding-right: 2rem;
+            font-size: 0.9rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .product-features li:hover {
+            background: #e9ecef;
+            transform: translateX(-3px);
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0.8rem;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1rem;
+            border-radius: 15px;
+            border: 2px solid #4CAF50;
+            box-shadow: 0 3px 12px rgba(76, 175, 80, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-price::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .product-item:hover .product-price::before {
+            left: 100%;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex: 1;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #45a049, #4CAF50);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+            min-width: 140px;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #495057, #6c757d);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4);
+        }
+        
+        .back-to-home {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        
+        .back-to-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #2c5530, #1e3a22);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(44, 85, 48, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-to-home a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .back-to-home a:hover::before {
+            left: 100%;
+        }
+        
+        .back-to-home a:hover {
+            background: linear-gradient(135deg, #1e3a22, #2c5530);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(44, 85, 48, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+            
+            .product-item {
+                margin: 0;
+            }
+            
+            .category-tabs {
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+            
+            .category-tab {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .product-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn-primary, .btn-secondary {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                                 <div class="logo">
+                     <i class="fas fa-leaf"></i>
+                     <span>العمري</span>
+                 </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html#home" class="nav-link">الرئيسية</a></li>
+                    <li><a href="index.html#products" class="nav-link">المنتجات</a></li>
+                    <li><a href="index.html#services" class="nav-link">الخدمات</a></li>
+                    <li><a href="index.html#about" class="nav-link">من نحن</a></li>
+                    <li><a href="index.html#location" class="nav-link">موقعنا</a></li>
+                    <li><a href="index.html#contact" class="nav-link">اتصل بنا</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <a href="index.html" class="products-btn">الرئيسية</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Products Hero -->
+    <section class="products-hero">
+        <div class="hero-content">
+            <h1>منتجاتنا</h1>
+            <p>اكتشف مجموعة واسعة من منتجات العلف عالية الجودة المصممة خصيصاً لاحتياجات ماشيتك</p>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="product-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">جميع المنتجات</button>
+                <button class="category-tab" data-category="cattle">علف الماشية</button>
+                <button class="category-tab" data-category="sheep">علف الأغنام</button>
+                <button class="category-tab" data-category="supplements">المكملات الغذائية</button>
+                <button class="category-tab" data-category="special">منتجات خاصة</button>
+            </div>
+
+            <div class="product-grid" id="productGrid">
+                <!-- Cattle Feed Products -->
+                                 <div class="product-item" data-category="cattle">
+                     <div class="product-image">
+                         <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=250&fit=crop&crop=center" alt="علف الماشية عالي الطاقة" style="width: 100%; height: 100%; object-fit: cover;">
+                         <div class="product-badge">الأكثر مبيعاً</div>
+                     </div>
+                    <div class="product-content">
+                        <h3 class="product-title">علف الماشية عالي الطاقة</h3>
+                        <p class="product-description">علف متوازن غني بالبروتين والطاقة، مثالي للماشية البالغة والنمو السريع.</p>
+                        <ul class="product-features">
+                            <li>محتوى بروتين 18-20%</li>
+                            <li>غني بالفيتامينات والمعادن</li>
+                            <li>مناسب لجميع الأعمار</li>
+                            <li>يساعد في زيادة إنتاج الحليب</li>
+                        </ul>
+                        <div class="product-price">450,000 ليرة سورية / طن</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن علف الماشية عالي الطاقة بسعر 450,000 ليرة سورية للطن" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+
+                                 <div class="product-item" data-category="cattle">
+                     <div class="product-image">
+                         <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop&crop=center" alt="علف العجول الصغيرة" style="width: 100%; height: 100%; object-fit: cover;">
+                     </div>
+                    <div class="product-content">
+                        <h3 class="product-title">علف العجول الصغيرة</h3>
+                        <p class="product-description">علف مخصص للعجول حديثة الولادة، يساعد في النمو الصحي والتطور السريع.</p>
+                        <ul class="product-features">
+                            <li>محتوى بروتين 22-24%</li>
+                            <li>سهل الهضم</li>
+                            <li>غني بالكالسيوم والفوسفور</li>
+                            <li>يعزز جهاز المناعة</li>
+                        </ul>
+                        <div class="product-price">520,000 ليرة سورية / طن</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن علف العجول الصغيرة بسعر 520,000 ليرة سورية للطن" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sheep Feed Products -->
+                                 <div class="product-item" data-category="sheep">
+                     <div class="product-image">
+                         <img src="https://images.unsplash.com/photo-1500595046743-cd271d694e30?w=400&h=250&fit=crop&crop=center" alt="علف الأغنام المتوازن" style="width: 100%; height: 100%; object-fit: cover;">
+                         <div class="product-badge">جديد</div>
+                     </div>
+                    <div class="product-content">
+                        <h3 class="product-title">علف الأغنام المتوازن</h3>
+                        <p class="product-description">علف متكامل للأغنام البالغة، مصمم لتحسين الصحة وإنتاجية الصوف.</p>
+                        <ul class="product-features">
+                            <li>محتوى بروتين 16-18%</li>
+                            <li>غني بالألياف الطبيعية</li>
+                            <li>يحسن جودة الصوف</li>
+                            <li>يدعم الصحة الإنجابية</li>
+                        </ul>
+                        <div class="product-price">380,000 ليرة سورية / طن</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن علف الأغنام المتوازن بسعر 380,000 ليرة سورية للطن" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+
+                                 <div class="product-item" data-category="sheep">
+                     <div class="product-image">
+                         <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop&crop=center" alt="علف الحملان" style="width: 100%; height: 100%; object-fit: cover;">
+                     </div>
+                    <div class="product-content">
+                        <h3 class="product-title">علف الحملان</h3>
+                        <p class="product-description">علف مخصص للحملان الصغيرة، يساعد في النمو السريع والصحي.</p>
+                        <ul class="product-features">
+                            <li>محتوى بروتين 20-22%</li>
+                            <li>سهل الهضم</li>
+                            <li>غني بالفيتامينات</li>
+                            <li>يعزز النمو الطبيعي</li>
+                        </ul>
+                        <div class="product-price">450,000 ليرة سورية / طن</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن علف الحملان بسعر 450,000 ليرة سورية للطن" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supplements -->
+                <div class="product-item" data-category="supplements">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474a2d3?w=400&h=250&fit=crop&crop=center" alt="مكملات معدنية شاملة" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">مكملات معدنية شاملة</h3>
+                        <p class="product-description">مكملات معدنية متوازنة تحتوي على جميع المعادن الأساسية لصحة الماشية.</p>
+                        <ul class="product-features">
+                            <li>كالسيوم وفوسفور متوازن</li>
+                            <li>معادن نادرة أساسية</li>
+                            <li>فيتامينات A, D, E</li>
+                            <li>يساعد في منع نقص المعادن</li>
+                        </ul>
+                        <div class="product-price">25,000 ليرة سورية / كجم</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن المكملات المعدنية بسعر 25,000 ليرة سورية للكيلوغرام" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item" data-category="supplements">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop&crop=center" alt="مكملات البروتين" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">مكملات البروتين</h3>
+                        <p class="product-description">مكملات بروتين عالية الجودة لتحسين النمو وإنتاجية الماشية.</p>
+                        <ul class="product-features">
+                            <li>محتوى بروتين 40-45%</li>
+                            <li>مصدر طبيعي للبروتين</li>
+                            <li>سهل الامتصاص</li>
+                            <li>يدعم بناء العضلات</li>
+                        </ul>
+                        <div class="product-price">35,000 ليرة سورية / كجم</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن مكملات البروتين بسعر 35,000 ليرة سورية للكيلوغرام" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Special Products -->
+                <div class="product-item" data-category="special">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=250&fit=crop&crop=center" alt="علف عضوي معتمد" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="product-badge">حصري</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">علف عضوي معتمد</h3>
+                        <p class="product-description">علف عضوي 100% معتمد من الهيئات الدولية، خالي من المواد الكيميائية.</p>
+                        <ul class="product-features">
+                            <li>عضوي 100% معتمد</li>
+                            <li>خالي من المواد الكيميائية</li>
+                            <li>مصادر طبيعية فقط</li>
+                            <li>مناسب للمنتجات العضوية</li>
+                        </ul>
+                        <div class="product-price">650,000 ليرة سورية / طن</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن العلف العضوي بسعر 650,000 ليرة سورية للطن" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item" data-category="special">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1500595046743-cd271d694e30?w=400&h=250&fit=crop&crop=center" alt="علف صحي للحيوانات المريضة" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">علف صحي للحيوانات المريضة</h3>
+                        <p class="product-description">علف مخصص للحيوانات التي تحتاج إلى رعاية خاصة وتغذية علاجية.</p>
+                        <ul class="product-features">
+                            <li>مكونات علاجية طبيعية</li>
+                            <li>سهل الهضم</li>
+                            <li>يدعم الشفاء</li>
+                            <li>غني بمضادات الأكسدة</li>
+                        </ul>
+                        <div class="product-price">580,000 ليرة سورية / طن</div>
+                        <div class="product-actions">
+                                                         <a href="https://wa.me/963551234567?text=أريد معلومات عن العلف الصحي بسعر 580,000 ليرة سورية للطن" class="btn-primary" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب الآن
+                            </a>
+                            <a href="product-details.html" class="btn-secondary">المزيد من التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Home -->
+    <section class="back-to-home">
+        <div class="container">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                العودة للصفحة الرئيسية
+            </a>
+        </div>
+    </section>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+                 <a href="https://wa.me/963551234567" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Product filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const productItems = document.querySelectorAll('.product-item');
+            
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Filter products
+                    productItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                            item.style.animation = 'fadeIn 0.5s ease';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Add fade in animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

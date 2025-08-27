@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المنتج - علف الماشية | العمري</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .product-details-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1500595046743-cd271d694e30?w=1200&h=400&fit=crop&crop=center');
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .breadcrumb {
+            background: #f9f9f9;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breadcrumb-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        
+        .product-main {
+            padding: 60px 0;
+        }
+        
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            background: #f5f5f5;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-gallery:hover .main-image img {
+            transform: scale(1.02);
+        }
+        
+        .product-info h1 {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+        
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .product-features li {
+            padding: 0.8rem 0;
+            color: #555;
+            position: relative;
+            padding-right: 2rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #4CAF50;
+            padding: 15px 30px;
+            border: 2px solid #4CAF50;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .btn-secondary:hover {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .product-tabs {
+            margin-top: 4rem;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 2rem;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            color: #4CAF50;
+            border-bottom-color: #4CAF50;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .specifications-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        
+        .specifications-table th,
+        .specifications-table td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .specifications-table th {
+            background: #f9f9f9;
+            color: #2c5530;
+            font-weight: 600;
+        }
+        
+        .back-to-products {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .back-to-products a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #2c5530;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-products a:hover {
+            background: #1e3a22;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .main-image {
+                height: 300px;
+                font-size: 6rem;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                                 <div class="logo">
+                     <i class="fas fa-leaf"></i>
+                     <span>العمري</span>
+                 </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html#home" class="nav-link">الرئيسية</a></li>
+                    <li><a href="index.html#products" class="nav-link">المنتجات</a></li>
+                    <li><a href="index.html#services" class="nav-link">الخدمات</a></li>
+                    <li><a href="index.html#about" class="nav-link">من نحن</a></li>
+                    <li><a href="index.html#location" class="nav-link">موقعنا</a></li>
+                    <li><a href="index.html#contact" class="nav-link">اتصل بنا</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <a href="index.html" class="products-btn">الرئيسية</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Details Hero -->
+    <section class="product-details-hero">
+        <div class="hero-content">
+            <h1>علف الماشية عالي الطاقة</h1>
+            <p>اكتشف تفاصيل منتجنا الأكثر مبيعاً</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="index.html">الرئيسية</a>
+                <i class="fas fa-chevron-left"></i>
+                <a href="products.html">المنتجات</a>
+                <i class="fas fa-chevron-left"></i>
+                <span>علف الماشية عالي الطاقة</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Main Section -->
+    <section class="product-main">
+        <div class="container">
+            <div class="product-container">
+                <!-- Product Gallery -->
+                                 <div class="product-gallery">
+                     <div class="main-image">
+                         <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop&crop=center" alt="علف الماشية عالي الطاقة" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                     </div>
+                 </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h1>علف الماشية عالي الطاقة</h1>
+                    
+                                         <div class="product-price">450,000 ليرة سورية / طن</div>
+                    
+                    <p class="product-description">
+                        علف متوازن عالي الجودة مصمم خصيصاً للماشية البالغة. يحتوي على مزيج مثالي من البروتين والطاقة والفيتامينات والمعادن لضمان النمو الأمثل وإنتاج الحليب عالي الجودة.
+                    </p>
+                    
+                    <ul class="product-features">
+                        <li>محتوى بروتين 18-20%</li>
+                        <li>غني بالفيتامينات والمعادن الأساسية</li>
+                        <li>مناسب لجميع الأعمار</li>
+                        <li>يساعد في زيادة إنتاج الحليب</li>
+                        <li>سهل الهضم والامتصاص</li>
+                        <li>مكونات طبيعية 100%</li>
+                    </ul>
+                    
+                    <div class="product-actions">
+                                                 <a href="https://wa.me/963551234567?text=أريد طلب علف الماشية عالي الطاقة بسعر 450,000 ليرة سورية للطن" class="btn-primary" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            طلب عبر واتساب
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <section class="product-tabs">
+        <div class="container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('specifications')">المواصفات</button>
+                <button class="tab-btn" onclick="showTab('nutrition')">القيمة الغذائية</button>
+                <button class="tab-btn" onclick="showTab('usage')">طريقة الاستخدام</button>
+            </div>
+            
+            <!-- Specifications Tab -->
+            <div id="specifications" class="tab-content active">
+                <table class="specifications-table">
+                    <tr>
+                        <th>الخاصية</th>
+                        <th>القيمة</th>
+                    </tr>
+                    <tr>
+                        <td>البروتين الخام</td>
+                        <td>18-20%</td>
+                    </tr>
+                    <tr>
+                        <td>الدهون الخام</td>
+                        <td>3-5%</td>
+                    </tr>
+                    <tr>
+                        <td>الألياف الخام</td>
+                        <td>8-12%</td>
+                    </tr>
+                    <tr>
+                        <td>الرماد</td>
+                        <td>6-8%</td>
+                    </tr>
+                    <tr>
+                        <td>الرطوبة</td>
+                        <td>12-14%</td>
+                    </tr>
+                    <tr>
+                        <td>الطاقة الهضمية</td>
+                        <td>2800-3200 كيلو كالوري/كجم</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Nutrition Tab -->
+            <div id="nutrition" class="tab-content">
+                <h3 style="color: #2c5530; margin-bottom: 1rem;">الفيتامينات والمعادن</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 0.5rem;">فيتامين A</h4>
+                        <p>15,000 وحدة دولية/كجم</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 0.5rem;">فيتامين D3</h4>
+                        <p>2,000 وحدة دولية/كجم</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 0.5rem;">فيتامين E</h4>
+                        <p>100 وحدة دولية/كجم</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 0.5rem;">الكالسيوم</h4>
+                        <p>1.2-1.5%</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 0.5rem;">الفوسفور</h4>
+                        <p>0.6-0.8%</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 0.5rem;">الزنك</h4>
+                        <p>80 ملجم/كجم</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Usage Tab -->
+            <div id="usage" class="tab-content">
+                <h3 style="color: #2c5530; margin-bottom: 1rem;">طريقة الاستخدام</h3>
+                <div style="background: #f9f9f9; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #4CAF50; margin-bottom: 1rem;">الجرعة الموصى بها:</h4>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li>الماشية البالغة: 2-3 كجم يومياً</li>
+                        <li>الماشية الحلوب: 3-4 كجم يومياً</li>
+                        <li>الماشية النامية: 2-2.5 كجم يومياً</li>
+                    </ul>
+                    
+                    <h4 style="color: #4CAF50; margin: 1.5rem 0 1rem;">نصائح مهمة:</h4>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li>يجب تقديم العلف مع الماء النظيف</li>
+                        <li>يفضل تقسيم الجرعة على مرتين يومياً</li>
+                        <li>تأكد من تخزين العلف في مكان جاف وبارد</li>
+                        <li>استشر الطبيب البيطري قبل تغيير النظام الغذائي</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Products -->
+    <section class="back-to-products">
+        <div class="container">
+            <a href="products.html">
+                <i class="fas fa-arrow-right"></i>
+                العودة لصفحة المنتجات
+            </a>
+        </div>
+    </section>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+                 <a href="https://wa.me/963551234567" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+
+    </script>
+</body>
+</html>
