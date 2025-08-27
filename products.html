@@ -345,69 +345,11 @@
             border-radius: 2px;
         }
         
-        .nav-container {
-            position: relative;
-        }
-        
         .nav-menu {
             transition: all 0.3s ease;
         }
         
-        /* Ensure mobile menu works properly */
-        .header {
-            position: relative;
-            z-index: 1001;
-        }
-        
-        .navbar {
-            position: relative;
-        }
-        
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-            
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: 2rem;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                border-top: 1px solid #e0e0e0;
-            }
-            
-            .nav-menu.active {
-                display: flex !important;
-            }
-            
-            .nav-menu li {
-                margin: 1rem 0;
-                text-align: center;
-            }
-            
-            .nav-menu .nav-link {
-                display: block;
-                padding: 1rem;
-                font-size: 1.1rem;
-                font-weight: 600;
-                color: #2c5530;
-                border-radius: 10px;
-                transition: all 0.3s ease;
-            }
-            
-            .nav-menu .nav-link:hover {
-                background: #f0f8f0;
-                color: #4CAF50;
-                transform: translateX(-5px);
-            }
-            
             .products-hero h1 {
                 font-size: 2rem;
             }
@@ -564,7 +506,7 @@
                     <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
                 </ul>
                 <div class="nav-icons">
-                    <a href="products.html" class="products-btn">المنتجات</a>
+                    <a href="index.html" class="products-btn">الرئيسية</a>
                 </div>
                 <div class="hamburger">
                     <span></span>
